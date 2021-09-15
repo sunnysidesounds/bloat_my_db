@@ -23,6 +23,7 @@ References:
 import argparse
 import logging
 import sys
+from faker import Faker
 
 from bloat_my_db import __version__
 
@@ -38,6 +39,11 @@ _logger = logging.getLogger(__name__)
 # Python scripts/interactive interpreter, e.g. via
 # `from bloat_my_db.skeleton import fib`,
 # when using this Python module as a library.
+
+def fake_name():
+    fake = Faker()
+    print(fake.name())
+
 
 
 def fib(n):
