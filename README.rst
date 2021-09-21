@@ -20,7 +20,8 @@ Note
 This project has been set up using PyScaffold 4.0.2. For details and usage
 information on PyScaffold see https://pyscaffold.org/.
 
-schema:
+#  JSON schema builder:
+# Generate database schema
 {
    "table1":{
         "id": {
@@ -44,3 +45,17 @@ schema:
    },
     ...
 }
+
+# JSON schema analyzer
+# Analyze schema and determine table insert order.
+
+{
+    "1": {
+        "table": "citations"
+    },
+    "2": {
+        "table": "molecules"
+    },
+    ...
+}
+
