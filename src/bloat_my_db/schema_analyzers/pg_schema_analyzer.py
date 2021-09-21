@@ -27,36 +27,62 @@ class PgSchemaAnalyzer:
         self.tables_with_insert_orders = []
 
     def analyze(self):
-
-        for table in self.get_no_foreign_key_tables():
+        for table in self.get_insertion_table_order():
             self.analyzed_schema[self.insert_order] = table
-            self.tables_with_insert_orders.append(table)
             self.insert_order += 1
-
-        foreign_key_tables = self.get_foreign_key_tables()
-
-        index = 0
-        t_length = len(foreign_key_tables)
-        while t_length != 0:
-            if index >= t_length:
-                index = 0
-            table = foreign_key_tables[index]
-            constraint_table_schema = list(set(self.schema[table]['@table_metadata']['foreign_constraint_tables']))
-            if is_list_a_subset(self.tables_with_insert_orders, constraint_table_schema):
-                self.analyzed_schema[self.insert_order] = table
-                self.tables_with_insert_orders.append(table)
-                foreign_key_tables.remove(table)
-                t_length = len(foreign_key_tables)
-                self.insert_order += 1
-
-            index += 1
-
-
-        print(foreign_key_tables)
         return self.analyzed_schema
 
-    def get_no_foreign_key_tables(self):
-        return self.schema['@database_metadata']['no_foreign_key_tables']
-
-    def get_foreign_key_tables(self):
-        return self.schema['@database_metadata']['foreign_key_tables']
+    def get_insertion_table_order(self):
+        query = """
+                WITH RECURSIVE fkeys AS (
+                   SELECT conrelid AS source,
+                          confrelid AS target
+                   FROM pg_constraint
+                   WHERE contype = 'f'
+                ),
+                tables AS (
+                      ( 
+                          SELECT oid AS table_name,
+                                 1 AS level,
+                                 ARRAY[oid] AS trail,
+                                 FALSE AS circular
+                          FROM pg_class
+                          WHERE relkind = 'r'
+                            AND NOT relnamespace::regnamespace::text LIKE ANY
+                                    (ARRAY['pg_catalog', 'information_schema', 'pg_temp_%'])
+                       EXCEPT
+                          SELECT source,
+                                 1,
+                                 ARRAY[ source ],
+                                 FALSE
+                          FROM fkeys
+                      )
+                   UNION ALL
+                      SELECT fkeys.source,
+                             tables.level + 1,
+                             tables.trail || fkeys.source,
+                             tables.trail @> ARRAY[fkeys.source]
+                      FROM fkeys
+                         JOIN tables ON tables.table_name = fkeys.target
+                      WHERE cardinality(array_positions(tables.trail, fkeys.source)) < 2
+                ),
+                ordered_tables AS (
+                   SELECT DISTINCT ON (table_name)
+                          table_name,
+                          level,
+                          circular
+                   FROM tables
+                   ORDER BY table_name, level DESC
+                )
+                SELECT table_name::regclass,
+                       level
+                FROM ordered_tables
+                WHERE NOT circular
+                ORDER BY level, table_name;
+        """
+        self.cursor.execute(query)
+        insertion_data = self.cursor.fetchall()
+        output = []
+        for insertion_name in insertion_data:
+            output.append(insertion_name[0])
+        return output
