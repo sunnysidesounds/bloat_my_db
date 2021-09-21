@@ -53,4 +53,3 @@ MANIFEST
 .conda*/
 
 venv/
-run.py
