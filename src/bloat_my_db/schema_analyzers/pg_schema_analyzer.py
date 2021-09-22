@@ -1,10 +1,11 @@
 import argparse
 import logging
 import sys
+import os
 import random
 import psycopg2
 from progress.bar import Bar
-from bloat_my_db.utilities import is_list_a_subset
+from bloat_my_db.utilities import generate_json_file, read_file
 
 from bloat_my_db import __version__
 
@@ -27,59 +28,24 @@ class PgSchemaAnalyzer:
         self.tables_with_insert_orders = []
 
     def analyze(self):
-        for table in self.get_insertion_table_order():
-            self.analyzed_schema[self.insert_order] = table
+        insertion_table_order = self.get_insertion_table_order()
+        progress_bar = Bar('Analyzing schema for {database}, determining insertion order...'.format(database=self.database),
+                           max=len(insertion_table_order))
+        for table in insertion_table_order:
+            table = table.replace("\"", "")
+            self.analyzed_schema[self.insert_order] = {
+                table: self.schema[table]
+            }
             self.insert_order += 1
+            progress_bar.next()
+        progress_bar.finish()
+        generate_json_file(self.database, self.analyzed_schema, 'analyzers')
         return self.analyzed_schema
 
     def get_insertion_table_order(self):
-        query = """
-                WITH RECURSIVE fkeys AS (
-                   SELECT conrelid AS source,
-                          confrelid AS target
-                   FROM pg_constraint
-                   WHERE contype = 'f'
-                ),
-                tables AS (
-                      ( 
-                          SELECT oid AS table_name,
-                                 1 AS level,
-                                 ARRAY[oid] AS trail,
-                                 FALSE AS circular
-                          FROM pg_class
-                          WHERE relkind = 'r'
-                            AND NOT relnamespace::regnamespace::text LIKE ANY
-                                    (ARRAY['pg_catalog', 'information_schema', 'pg_temp_%'])
-                       EXCEPT
-                          SELECT source,
-                                 1,
-                                 ARRAY[ source ],
-                                 FALSE
-                          FROM fkeys
-                      )
-                   UNION ALL
-                      SELECT fkeys.source,
-                             tables.level + 1,
-                             tables.trail || fkeys.source,
-                             tables.trail @> ARRAY[fkeys.source]
-                      FROM fkeys
-                         JOIN tables ON tables.table_name = fkeys.target
-                      WHERE cardinality(array_positions(tables.trail, fkeys.source)) < 2
-                ),
-                ordered_tables AS (
-                   SELECT DISTINCT ON (table_name)
-                          table_name,
-                          level,
-                          circular
-                   FROM tables
-                   ORDER BY table_name, level DESC
-                )
-                SELECT table_name::regclass,
-                       level
-                FROM ordered_tables
-                WHERE NOT circular
-                ORDER BY level, table_name;
-        """
+        sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_insertion_table_order.sql')
+        query = read_file(sql_file)
+
         self.cursor.execute(query)
         insertion_data = self.cursor.fetchall()
         output = []

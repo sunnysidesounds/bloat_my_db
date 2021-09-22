@@ -3,9 +3,10 @@ import logging
 import sys
 import json
 import time
+import os
 import psycopg2
 from progress.bar import Bar
-from bloat_my_db.utilities import generate_json_file, is_generated_file_exist, load_generated_file, get_filename
+from bloat_my_db.utilities import generate_json_file, is_generated_file_exist, load_generated_file, get_filename, read_file
 
 from bloat_my_db import __version__
 
@@ -25,9 +26,9 @@ class PgSchemaBuilder:
         self.schema = dict()
         self.table_count = 0
 
-    def build_schema(self, table_schema_name='public'):
+    def build_schema(self, table_schema_name='public', force_rebuild=False):
 
-        if is_generated_file_exist(self.database, 'schemas'):
+        if is_generated_file_exist(self.database, 'schemas') and not force_rebuild:
             print("{schema_file}.json already exists, using this generated schema...".format(schema_file=get_filename(self.database)))
             self.schema = load_generated_file(self.database, 'schemas')
         else:
@@ -53,39 +54,20 @@ class PgSchemaBuilder:
         return self.schema
 
     def build_tables(self, table_schema_name='public'):
-            query = """
-            select
-              table_schema,
-              table_name,
-              obj_description((table_schema || '."' || table_name || '"')::regclass, 'pg_class')
-            from information_schema.tables
-            where table_schema = '{name}'
-            order by table_schema, table_name
-            """.format(name=table_schema_name)
+        sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/build_tables.sql')
+        query = read_file(sql_file).format(name=table_schema_name)
 
-            self.cursor.execute(query)
-            table_data = self.cursor.fetchall()
-            data = []
-            for table in table_data:
-                data.append(table[1])
-                self.table_count += 1
-            return data
+        self.cursor.execute(query)
+        table_data = self.cursor.fetchall()
+        data = []
+        for table in table_data:
+            data.append(table[1])
+            self.table_count += 1
+        return data
 
-    def build_columns(self, table_name, table_schema_name ='public'):
-        query = """
-        select
-          table_schema,
-          table_name,
-          column_name,
-          column_default,
-          is_nullable::boolean,
-          data_type,
-          udt_name,
-          col_description((table_schema || '."' || table_name || '"')::regclass, ordinal_position)
-        from information_schema.columns
-        where table_schema = '{schema_name}' and table_name = '{table_name}'
-        order by table_schema, table_name, ordinal_position
-        """.format(schema_name=table_schema_name, table_name=table_name)
+    def build_columns(self, table_name, table_schema_name='public'):
+        sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/build_columns.sql')
+        query = read_file(sql_file).format(schema_name=table_schema_name, table_name=table_name)
 
         self.cursor.execute(query)
         column_data = self.cursor.fetchall()
@@ -131,34 +113,8 @@ class PgSchemaBuilder:
         return output
 
     def get_column_constraint(self, table_name, column_name, table_schema_name='public'):
-        query = """
-        select
-          coalesce(table_schema, referenced_schema) as table_schema,
-          coalesce(table_name, referenced_table) as table_name,
-          coalesce(column_name, referenced_column) as column_name,
-          constraint_schema,
-          constraint_name,
-          constraint_type,
-          check_clause,
-          referenced_schema,
-          referenced_table,
-          referenced_column
-          
-        from information_schema.table_constraints
-        natural full join information_schema.key_column_usage
-        natural full join information_schema.check_constraints
-        inner join (
-          select
-            table_schema as referenced_schema,
-            table_name as referenced_table,
-            column_name as referenced_column,
-            constraint_name
-          from information_schema.constraint_column_usage
-        ) as referenced_columns using (constraint_name)
-        
-        where constraint_schema = '{schema_name}' and table_name = '{table_name}'  and column_name = '{column_name}'
-        order by table_schema, table_name, ordinal_position
-        """.format(schema_name=table_schema_name, table_name=table_name, column_name=column_name)
+        sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_column_constraint.sql')
+        query = read_file(sql_file).format(schema_name=table_schema_name, table_name=table_name, column_name=column_name)
 
         self.cursor.execute(query)
         constraint_data = self.cursor.fetchall()
@@ -173,14 +129,8 @@ class PgSchemaBuilder:
         return data
 
     def get_values_from_type(self, type):
-        query = """
-        SELECT pg_type.typname AS enumtype, 
-             pg_enum.enumlabel AS enumlabel
-         FROM pg_type 
-         JOIN pg_enum 
-             ON pg_enum.enumtypid = pg_type.oid
-        WHERE pg_type.typname = '{type}'
-        """.format(type=type)
+        sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_values_from_type.sql')
+        query = read_file(sql_file).format(type=type)
 
         self.cursor.execute(query)
         types = []
