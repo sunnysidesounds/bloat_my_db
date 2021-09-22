@@ -42,6 +42,12 @@ class PgSchemaAnalyzer:
         generate_json_file(self.database, self.analyzed_schema, 'analyzers')
         return self.analyzed_schema
 
+    def display_table_insertion_order(self):
+        for order in self.analyzed_schema:
+            table = self.analyzed_schema[order]
+            table_name = list(table.keys())[0]
+            print("{order} - {table}".format(order=order, table=table_name))
+
     def get_insertion_table_order(self):
         sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_insertion_table_order.sql')
         query = read_file(sql_file)

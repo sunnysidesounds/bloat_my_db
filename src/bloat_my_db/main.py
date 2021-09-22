@@ -60,8 +60,7 @@ def main(args):
     analyzer = PgSchemaAnalyzer(schema, conn_info)
     analyzed_schema = analyzer.analyze()
 
-    json_schema = json.dumps(analyzed_schema, indent=4)
-    print(json_schema)
+    analyzer.display_table_insertion_order()
 
 
 def run():

@@ -41,5 +41,4 @@ ORDER BY table_name, level DESC
 SELECT table_name::regclass,
        level
 FROM ordered_tables
-WHERE NOT circular
 ORDER BY level, table_name
