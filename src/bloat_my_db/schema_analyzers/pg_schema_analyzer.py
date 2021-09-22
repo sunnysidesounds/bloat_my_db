@@ -29,7 +29,7 @@ class PgSchemaAnalyzer:
 
     def analyze(self):
         insertion_table_order = self.get_insertion_table_order()
-        progress_bar = Bar('Analyzing schema for {database}, determining insertion order...'.format(database=self.database),
+        progress_bar = Bar('- Analyzing schema for {database}, determining insertion order...'.format(database=self.database),
                            max=len(insertion_table_order))
         for table in insertion_table_order:
             table = table.replace("\"", "")

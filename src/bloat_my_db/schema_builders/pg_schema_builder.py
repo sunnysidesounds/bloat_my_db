@@ -6,7 +6,11 @@ import time
 import os
 import psycopg2
 from progress.bar import Bar
-from bloat_my_db.utilities import generate_json_file, is_generated_file_exist, load_generated_file, get_filename, read_file
+from bloat_my_db.utilities import generate_json_file, \
+    is_generated_file_exist, \
+    load_generated_file, \
+    get_filename, \
+    read_file
 
 from bloat_my_db import __version__
 
@@ -29,13 +33,13 @@ class PgSchemaBuilder:
     def build_schema(self, table_schema_name='public', force_rebuild=False):
 
         if is_generated_file_exist(self.database, 'schemas') and not force_rebuild:
-            print("{schema_file}.json already exists, using this generated schema...".format(schema_file=get_filename(self.database)))
+            _logger.info("{schema_file}.json already exists, using this generated schema...".format(schema_file=get_filename(self.database)))
             self.schema = load_generated_file(self.database, 'schemas')
         else:
             tables = self.build_tables(table_schema_name)
             no_foreign_keys = []
             has_foreign_keys = []
-            progress_bar = Bar('Building schema for {database}...'.format(database=self.database), max=len(tables))
+            progress_bar = Bar('- Building schema for {database}...'.format(database=self.database), max=len(tables))
             for table in tables:
                 columns = self.build_columns(table)
                 self.schema[table] = columns
