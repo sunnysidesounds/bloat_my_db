@@ -1,10 +1,11 @@
-from bloat_my_db.schema_builders.pg_schema_builder import PgSchemaBuilder
-from bloat_my_db.schema_analyzers.pg_schema_analyzer import PgSchemaAnalyzer
-from bloat_my_db.utilities import read_file, purge_generated_files, get_generated_file_path, open_file_in_browser
 import json
 import argparse
 import logging
 import sys
+from bloat_my_db.schema_builders.pg_schema_builder import PgSchemaBuilder
+from bloat_my_db.schema_analyzers.pg_schema_analyzer import PgSchemaAnalyzer
+from bloat_my_db.data_bloaters.pg_data_bloater import PgDataBloater
+from bloat_my_db.utilities import read_file, purge_generated_files, get_generated_file_path, open_file_in_browser
 
 from bloat_my_db import __version__
 
@@ -64,10 +65,17 @@ def main(args):
 
     if args.build:
         builder = PgSchemaBuilder(conn_info)
-        schema = builder.build_schema(force_rebuild=args.build)
+        schema = builder.build_schema(force_rebuild=False) # Change this
         analyzer = PgSchemaAnalyzer(schema, conn_info)
-        analyzer.analyze()
-        print("- Completed building and analyzing {database} database!".format(database=database))
+        analyzed_schema = analyzer.analyze()
+        if analyzed_schema:
+            print("- Part 1: completed built & analyzed for {database} database!".format(database=database))
+            bloater = PgDataBloater(analyzed_schema, conn_info)
+            bloater.bloat_data()
+
+
+
+
 
         #analyzer.display_table_insertion_order()
         #builder.display_table_count()

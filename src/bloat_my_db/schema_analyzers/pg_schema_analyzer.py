@@ -25,9 +25,9 @@ class PgSchemaAnalyzer:
         self.schema = schema
         self.analyzed_schema = dict()
         self.insert_order = 1
-        self.tables_with_insert_orders = []
 
     def analyze(self):
+        # TODO: Add already exists JSON file
         insertion_table_order = self.get_insertion_table_order()
         progress_bar = Bar('- Analyzing schema for {database}, determining insertion order...'.format(database=self.database),
                            max=len(insertion_table_order))
