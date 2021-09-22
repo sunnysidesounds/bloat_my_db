@@ -5,7 +5,7 @@ import os
 import random
 import psycopg2
 from progress.bar import Bar
-from bloat_my_db.utilities import generate_json_file, read_file
+from bloat_my_db.utilities import generate_json_file, read_file, display_in_table
 
 from bloat_my_db import __version__
 
@@ -43,15 +43,16 @@ class PgSchemaAnalyzer:
         return self.analyzed_schema
 
     def display_table_insertion_order(self):
+        display_list = []
         for order in self.analyzed_schema:
             table = self.analyzed_schema[order]
             table_name = list(table.keys())[0]
-            print("{order} - {table}".format(order=order, table=table_name))
+            display_list.append([order, table_name])
+        display_in_table("Insertion Table Order Results:", display_list, ["INSERT_ORDER", "TABLE_NAME"])
 
     def get_insertion_table_order(self):
         sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_insertion_table_order.sql')
         query = read_file(sql_file)
-
         self.cursor.execute(query)
         insertion_data = self.cursor.fetchall()
         output = []

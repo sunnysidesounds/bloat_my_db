@@ -10,7 +10,8 @@ from bloat_my_db.utilities import generate_json_file, \
     is_generated_file_exist, \
     load_generated_file, \
     get_filename, \
-    read_file
+    read_file, \
+    display_in_table
 
 from bloat_my_db import __version__
 
@@ -33,7 +34,7 @@ class PgSchemaBuilder:
     def build_schema(self, table_schema_name='public', force_rebuild=False):
 
         if is_generated_file_exist(self.database, 'schemas') and not force_rebuild:
-            _logger.info("{schema_file}.json already exists, using this generated schema...".format(schema_file=get_filename(self.database)))
+            print("- {schema_file}.json already exists, using this generated schema...".format(schema_file=get_filename(self.database)))
             self.schema = load_generated_file(self.database, 'schemas')
         else:
             tables = self.build_tables(table_schema_name)
@@ -135,7 +136,6 @@ class PgSchemaBuilder:
     def get_values_from_type(self, type):
         sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_values_from_type.sql')
         query = read_file(sql_file).format(type=type)
-
         self.cursor.execute(query)
         types = []
         type_data = self.cursor.fetchall()
@@ -144,4 +144,25 @@ class PgSchemaBuilder:
         return types
 
     def get_table_count(self):
+        sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_table_count.sql')
+        query = read_file(sql_file).format(type=type)
+        self.cursor.execute(query)
+        count = self.cursor.fetchone()
+        self.table_count = count[0]
         return self.table_count
+
+    def display_table_count(self):
+        display_in_table("Table Count Results:", [[self.get_table_count()]], ["TABLE_COUNT"])
+
+    def get_row_count_by_table(self):
+        sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_row_count_by_table.sql')
+        query = read_file(sql_file).format(type=type)
+        self.cursor.execute(query)
+        tables = []
+        type_data = self.cursor.fetchall()
+        for tdata in type_data:
+            tables.append([ tdata[0], tdata[1] ])
+        return tables
+
+    def display_row_count_by_table(self):
+        display_in_table("Row Count By Table Results:", self.get_row_count_by_table(), ["TABLE_NAME", "COUNT"])

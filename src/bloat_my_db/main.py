@@ -5,7 +5,6 @@ import json
 import argparse
 import logging
 import sys
-import webbrowser
 
 from bloat_my_db import __version__
 
@@ -14,16 +13,15 @@ __copyright__ = "Jason R Alexander"
 __license__ = "MIT"
 
 _logger = logging.getLogger(__name__)
+parser = argparse.ArgumentParser(description="Bloat my Database!")
 
 
 def parse_args(args):
-    parser = argparse.ArgumentParser(description="Bloat my Database!")
-    parser.add_argument('-rebuild', help="rebuilds of the schema and analyzer JSON files", action='store_true')
-    parser.add_argument('-config', help="rebuilds of the schema and analyzer JSON files", type=str, required=True)
+    parser.add_argument('-build', help="builds the schema and analyzer JSON files", action='store_true')
+    parser.add_argument('-config', help="required configuration file", type=str, required=True)
     parser.add_argument('-purge', help="purges all generated files (schemas, analyzer, csv)", action='store_true')
     parser.add_argument('-buildSchemaOnly', help="builds ONLY the database schema JSON, open in browser tab", action='store_true')
     parser.add_argument('-buildAnalyzerOnly', help="builds ONLY the database schema JSON, open in browser tab", action='store_true')
-
     return parser.parse_args(args)
 
 
@@ -35,6 +33,7 @@ def setup_logging():
 
 
 def main(args):
+    print("------------------------------------------------------------------")
     args = parse_args(args)
     setup_logging()
     conn_info = json.loads(read_file(args.config))
@@ -47,30 +46,37 @@ def main(args):
 
     if args.buildSchemaOnly:
         builder = PgSchemaBuilder(conn_info)
-        builder.build_schema(force_rebuild=args.rebuild)
+        builder.build_schema(force_rebuild=True)
         schema_path = get_generated_file_path(database, 'schemas')
         open_file_in_browser(schema_path)
-        logging.info("Completed schema only build!")
+        print("- Completed schema only build for {database}!".format(database=database))
         sys.exit()
 
     if args.buildAnalyzerOnly:
         builder = PgSchemaBuilder(conn_info)
-        schema = builder.build_schema(force_rebuild=args.rebuild)
+        schema = builder.build_schema(force_rebuild=True)
         analyzer = PgSchemaAnalyzer(schema, conn_info)
         analyzer.analyze()
         analyzer_path = get_generated_file_path(database, 'analyzers')
         open_file_in_browser(analyzer_path)
-        logging.info("Completed analyzer only build!")
+        print("- Completed analyzer only build for {database}!".format(database=database))
         sys.exit()
 
+    if args.build:
+        builder = PgSchemaBuilder(conn_info)
+        schema = builder.build_schema(force_rebuild=args.build)
+        analyzer = PgSchemaAnalyzer(schema, conn_info)
+        analyzer.analyze()
+        print("- Completed building and analyzing {database} database!".format(database=database))
 
-    builder = PgSchemaBuilder(conn_info)
-    schema = builder.build_schema(force_rebuild=args.rebuild)
-
-    analyzer = PgSchemaAnalyzer(schema, conn_info)
-    analyzed_schema = analyzer.analyze()
-
-    analyzer.display_table_insertion_order()
+        #analyzer.display_table_insertion_order()
+        #builder.display_table_count()
+        #builder.display_row_count_by_table()
+    else:
+        print("- Please choose an option:\n")
+        parser.print_help()
+        print("\n")
+    print("------------------------------------------------------------------")
 
 
 def run():

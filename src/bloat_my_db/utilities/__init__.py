@@ -4,6 +4,7 @@ import logging
 import os
 from os.path import exists
 import webbrowser
+from tabulate import tabulate
 
 from bloat_my_db import __version__
 
@@ -83,5 +84,11 @@ def open_file_in_browser(path):
     # TODO : Make the ability to choose different browsers.
     browser = webbrowser.get('chrome')
     browser.open_new("file://" + path)
+
+
+def display_in_table(title, table, headers):
+    print("\n{title}".format(title=title))
+    print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
+    print("\n")
 
 
