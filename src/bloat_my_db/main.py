@@ -20,9 +20,11 @@ parser = argparse.ArgumentParser(description="Bloat my Database!")
 def parse_args(args):
     parser.add_argument('-build', help="builds the schema and analyzer JSON files", action='store_true')
     parser.add_argument('-config', help="required configuration file", type=str, required=True)
+    parser.add_argument('-rows', help="How may rows do you want to populate, default is 25", type=int)
     parser.add_argument('-purge', help="purges all generated files (schemas, analyzer, csv)", action='store_true')
     parser.add_argument('-buildSchemaOnly', help="builds ONLY the database schema JSON, open in browser tab", action='store_true')
     parser.add_argument('-buildAnalyzerOnly', help="builds ONLY the database schema JSON, open in browser tab", action='store_true')
+
     return parser.parse_args(args)
 
 
@@ -64,6 +66,7 @@ def main(args):
         sys.exit()
 
     if args.build:
+        default_rows_to_generate = 25
         builder = PgSchemaBuilder(conn_info)
         schema = builder.build_schema(force_rebuild=False) # Change this
         analyzer = PgSchemaAnalyzer(schema, conn_info)
@@ -71,7 +74,8 @@ def main(args):
         if analyzed_schema:
             print("- Part 1: completed built & analyzed for {database} database!".format(database=database))
             bloater = PgDataBloater(analyzed_schema, conn_info)
-            bloater.bloat_data()
+            rows_to_create = args.rows if args.rows else default_rows_to_generate
+            bloater.bloat_data(rows_to_create)
 
 
 

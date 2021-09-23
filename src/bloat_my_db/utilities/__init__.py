@@ -2,9 +2,11 @@ import time
 import json
 import logging
 import os
+import random
 from os.path import exists
 import webbrowser
 from tabulate import tabulate
+from datetime import datetime, timedelta
 
 from bloat_my_db import __version__
 
@@ -91,4 +93,20 @@ def display_in_table(title, table, headers):
     print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
     print("\n")
 
+# TODO Moveout
+def get_random_hash(length):
+    choices = '0123456789abcdefghijklmnopqrstuvwxyz'
+    results = ''.join(random.choice(choices) for i in range(length))
+    return results
 
+# TODO: Moveout
+def get_random_datetime(min_year=1900, max_year=datetime.now().year):
+    # generate a datetime in format yyyy-mm-dd hh:mm:ss.000000
+    start = datetime(min_year, 1, 1, 00, 00, 00)
+    years = max_year - min_year + 1
+    end = start + timedelta(days=365 * years)
+    return start + (end - start) * random.random()
+
+# TODO: Moveout
+def get_random_number():
+    return str(random.randint(1, 999))

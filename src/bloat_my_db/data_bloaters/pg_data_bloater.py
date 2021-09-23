@@ -2,6 +2,7 @@ import argparse
 import logging
 import sys
 import os
+import uuid
 import random
 import psycopg2
 from psycopg2 import sql
@@ -9,7 +10,7 @@ import psycopg2.extras as psql_extras
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from progress.bar import Bar
 import pandas as pd
-from bloat_my_db.utilities import generate_json_file, read_file, display_in_table
+from bloat_my_db.utilities import get_random_hash, get_random_datetime, get_random_number
 
 from bloat_my_db import __version__
 
@@ -28,29 +29,64 @@ class PgDataBloater:
         self.cursor = self.connection.cursor()
         self.analyzed_schema = analyzed_schema
 
-    def bloat_data(self, how_many=1):
+    def bloat_data(self, how_many):
         for key, value in self.analyzed_schema.items():
             table = list(value.keys())[0]
-
-            # TODO Need to create multiple dataframework based on how_many
-            dataframe = self.build_dataframe(value[table]['columns'])
-            self.populate_table(how_many, table, dataframe)
+            self.populate_table(how_many, table, value[table]['columns'])
 
     def build_dataframe(self, columns):
         dataframe = {}
         for column in columns:
-            dataframe[column['name']] = [self.get_data_by_type(column['data_type'])]
+            value = self.get_data_by_type(column)
+            dataframe[column['name']] = [value]
         return pd.DataFrame(dataframe)
 
-    def get_data_by_type(self, data_type):
-        print(data_type)
-        return 'TODO'
+    def get_data_by_type(self, column):
+        value = None
+        # check if is_nullable is True (if False we need a value)
+        if not column['is_nullable']:
+            if 'constraint' in column:
+                constraint_list = list(column['constraint'])
+                constraint_values = list(column['constraint'].values())
+                types = [const_dict['type'] for const_dict in constraint_values]
+                if 'FOREIGN KEY' in types:
+                    index = types.index('FOREIGN KEY')
+                    constraint_name = constraint_list[index]
+                    constraint = column['constraint'][constraint_name]
+                    constraint_table = constraint['referenced_table']
+                    constraint_column = constraint['referenced_column']
+                    value = str(self.get_random_row(constraint_column, constraint_table)[0])
+                elif 'PRIMARY KEY' in types and column['data_type'] == 'uuid':
+                    value = str(uuid.uuid4())
+                elif 'PRIMARY KEY' in types:
+                    value = get_random_hash(25)
+                else:
+                    value = 'TODO'
+            else:
+                if column['data_type'] == 'character varying':
+                    value = get_random_hash(25)
+                elif column['data_type'] == 'timestamp without time zone':
+                    value = get_random_datetime(min_year=2000) # TODO : change this
+                elif column['data_type'] == 'text':
+                    value = get_random_hash(25)
+                elif column['data_type'] == 'boolean':
+                    value = False
+                elif column['data_type'] == 'USER-DEFINED':
+                    user_defined_values = column['user_defined_type']['values']
+                    value = random.choice(user_defined_values)
+                elif column['data_type'] == 'integer':
+                    value = get_random_number()
+                else:
+                    print(column['data_type'])
 
-    def populate_table(self, how_many, table_name, dataframe):
+        return value
+
+    def populate_table(self, how_many, table_name, columns_data):
         progress_bar = Bar(' - building [{}] table '.format(table_name), max=how_many)
         for index in range(how_many):
+            dataframe = self.build_dataframe(columns_data)
             columns = ', '.join(dataframe.columns.tolist())
-            query = """INSERT INTO {table_name}({columns} ) VALUES %s""".format(table_name=table_name, columns=columns)
+            query = """INSERT INTO "{table_name}"({columns} ) VALUES %s ON CONFLICT DO NOTHING""".format(table_name=table_name, columns=columns)
             self.insert_table_data(index + 1, query, self.connection, self.cursor, dataframe, how_many)
             progress_bar.next()
         progress_bar.finish()
@@ -77,3 +113,12 @@ class PgDataBloater:
             sys.exit()
         else:
             conn.commit()
+
+    # TODO: Move this out
+    def get_random_row(self, columns, table):
+        self.cursor.execute("SELECT {columns} FROM {table} ORDER BY random() LIMIT 1".format(columns=columns, table=table))
+        return self.cursor.fetchone()
+
+    def get_random_row_where(self, columns, table, query):
+        self.cursor.execute("SELECT {columns} FROM {table} {query} ORDER BY random() LIMIT 1".format(columns=columns, table=table, query=query))
+        return self.cursor.fetchone()
