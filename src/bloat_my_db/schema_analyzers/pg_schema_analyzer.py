@@ -5,7 +5,7 @@ import os
 import random
 import psycopg2
 from progress.bar import Bar
-from bloat_my_db.utilities import generate_json_file, read_file, display_in_table
+from bloat_my_db.utilities import generate_json_file, read_file, display_in_table, is_generated_file_exist, get_filename, load_generated_file
 
 from bloat_my_db import __version__
 
@@ -26,20 +26,23 @@ class PgSchemaAnalyzer:
         self.analyzed_schema = dict()
         self.insert_order = 1
 
-    def analyze(self):
-        # TODO: Add already exists JSON file
-        insertion_table_order = self.get_insertion_table_order()
-        progress_bar = Bar('- Analyzing schema for {database}, determining insertion order...'.format(database=self.database),
-                           max=len(insertion_table_order))
-        for table in insertion_table_order:
-            table = table.replace("\"", "")
-            self.analyzed_schema[self.insert_order] = {
-                table: self.schema[table]
-            }
-            self.insert_order += 1
-            progress_bar.next()
-        progress_bar.finish()
-        generate_json_file(self.database, self.analyzed_schema, 'analyzers')
+    def build_analyzer_schema(self, force_rebuild=False):
+        if is_generated_file_exist(self.database, 'analyzers') and not force_rebuild:
+            print("- {schema_file}.json already exists, using this generated analyzer schema...".format(schema_file=get_filename(self.database)))
+            self.analyzed_schema = load_generated_file(self.database, 'analyzers')
+        else:
+            insertion_table_order = self.get_insertion_table_order()
+            progress_bar = Bar('- Analyzing schema for {database}, determining insertion order...'.format(database=self.database),
+                               max=len(insertion_table_order))
+            for table in insertion_table_order:
+                table = table.replace("\"", "")
+                self.analyzed_schema[self.insert_order] = {
+                    table: self.schema[table]
+                }
+                self.insert_order += 1
+                progress_bar.next()
+            progress_bar.finish()
+            generate_json_file(self.database, self.analyzed_schema, 'analyzers')
         return self.analyzed_schema
 
     def display_table_insertion_order(self):

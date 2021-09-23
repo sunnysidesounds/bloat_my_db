@@ -57,9 +57,9 @@ def main(args):
 
     if args.buildAnalyzerOnly:
         builder = PgSchemaBuilder(conn_info)
-        schema = builder.build_schema(force_rebuild=True)
+        schema = builder.build_schema(force_rebuild=False)
         analyzer = PgSchemaAnalyzer(schema, conn_info)
-        analyzer.analyze()
+        analyzer.build_analyzer_schema(force_rebuild=True)
         analyzer_path = get_generated_file_path(database, 'analyzers')
         open_file_in_browser(analyzer_path)
         print("- Completed analyzer only build for {database}!".format(database=database))
@@ -70,7 +70,7 @@ def main(args):
         builder = PgSchemaBuilder(conn_info)
         schema = builder.build_schema(force_rebuild=False) # Change this
         analyzer = PgSchemaAnalyzer(schema, conn_info)
-        analyzed_schema = analyzer.analyze()
+        analyzed_schema = analyzer.build_analyzer_schema(force_rebuild=False)
         if analyzed_schema:
             print("- Part 1: completed built & analyzed for {database} database!".format(database=database))
             bloater = PgDataBloater(analyzed_schema, conn_info)
