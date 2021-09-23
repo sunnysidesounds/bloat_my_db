@@ -1,0 +1,4684 @@
+{
+    "__EFMigrationsHistory": {
+        "columns": [
+            {
+                "name": "migration_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk___ef_migrations_history": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "__EFMigrationsHistory",
+                        "referenced_column": "migration_id"
+                    }
+                }
+            },
+            {
+                "name": "product_version",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "capsids": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_capsids": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "capsids",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 6,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "citation": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_citation": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "citation",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "is_preferred",
+                "data_type": "boolean",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "authors",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "date_published",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "title",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "resource",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "pages",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "doi",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "pmid",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "molecule_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_citation_molecules_molecule_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "molecule_alias_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_citation_molecule_alias_molecule_alias_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecule_alias",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "embryonic_stem_cell_line_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_citation_embryonic_stem_cell_lines_embryonic_stem_cell_line": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "embryonic_stem_cell_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "embryonic_stem_cell_line_alias_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_citation_embryonic_stem_cell_line_aliases_embryonic_stem_ce": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "embryonic_stem_cell_line_aliases",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "transgenic_line_alias_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_citation_transgenic_line_aliases_transgenic_line_alias_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "transgenic_line_aliases",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "viral_prep_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_citation_viral_preps_viral_prep_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viral_preps",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "virus_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_citation_viruses_virus_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viruses",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "locus_alias_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_citation_locus_aliases_locus_alias_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "locus_aliases",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "gene_symbol_alias_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_citation_gene_symbol_aliases_gene_symbol_alias_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "gene_symbol_aliases",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "transgenic_line_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_citation_mouse_lines_transgenic_line_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "mouse_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "virus_alias_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_citation_virus_aliases_virus_alias_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "virus_aliases",
+                        "referenced_column": "id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 24,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "molecules",
+                "molecule_alias",
+                "embryonic_stem_cell_lines",
+                "embryonic_stem_cell_line_aliases",
+                "transgenic_line_aliases",
+                "viral_preps",
+                "viruses",
+                "locus_aliases",
+                "gene_symbol_aliases",
+                "mouse_lines",
+                "virus_aliases"
+            ]
+        }
+    },
+    "contact_molecule": {
+        "columns": [
+            {
+                "name": "creators_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_contact_molecule": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "contact_molecule",
+                        "referenced_column": "molecules_id"
+                    },
+                    "fk_contact_molecule_contacts_creators_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "contacts",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "molecules_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_contact_molecule_molecules_molecules_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    },
+                    "pk_contact_molecule": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "contact_molecule",
+                        "referenced_column": "molecules_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "contacts",
+                "molecules"
+            ]
+        }
+    },
+    "contact_organization": {
+        "columns": [
+            {
+                "name": "contacts_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_contact_organization": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "contact_organization",
+                        "referenced_column": "organizations_id"
+                    },
+                    "fk_contact_organization_contacts_contacts_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "contacts",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "organizations_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_contact_organization_organizations_organizations_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "organizations",
+                        "referenced_column": "id"
+                    },
+                    "pk_contact_organization": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "contact_organization",
+                        "referenced_column": "organizations_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "contacts",
+                "organizations"
+            ]
+        }
+    },
+    "contact_patent": {
+        "columns": [
+            {
+                "name": "contacts_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_contact_patent": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "contact_patent",
+                        "referenced_column": "patents_id"
+                    },
+                    "fk_contact_patent_contacts_contacts_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "contacts",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "patents_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_contact_patent_patents_patents_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "patents",
+                        "referenced_column": "id"
+                    },
+                    "pk_contact_patent": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "contact_patent",
+                        "referenced_column": "patents_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "contacts",
+                "patents"
+            ]
+        }
+    },
+    "contacts": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_contacts": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "contacts",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "email",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "first_name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "last_name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "phone_number",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 9,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "embryonic_stem_cell_line_aliases": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_embryonic_stem_cell_line_aliases": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "embryonic_stem_cell_line_aliases",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "embryonic_stem_cell_line_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_embryonic_stem_cell_line_aliases_embryonic_stem_cell_lines_": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "embryonic_stem_cell_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "is_preferred",
+                "data_type": "boolean",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "embryonic_stem_cell_lines"
+            ]
+        }
+    },
+    "embryonic_stem_cell_line_method": {
+        "columns": [
+            {
+                "name": "embryonic_stem_cell_lines_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_embryonic_stem_cell_line_method": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "embryonic_stem_cell_line_method",
+                        "referenced_column": "methods_id"
+                    },
+                    "fk_embryonic_stem_cell_line_method_embryonic_stem_cell_lines_e": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "embryonic_stem_cell_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "methods_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_embryonic_stem_cell_line_method_methods_methods_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "methods",
+                        "referenced_column": "id"
+                    },
+                    "pk_embryonic_stem_cell_line_method": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "embryonic_stem_cell_line_method",
+                        "referenced_column": "methods_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "embryonic_stem_cell_lines",
+                "methods"
+            ]
+        }
+    },
+    "embryonic_stem_cell_line_mouse_line": {
+        "columns": [
+            {
+                "name": "embryonic_stem_cell_lines_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_embryonic_stem_cell_line_mouse_line": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "embryonic_stem_cell_line_mouse_line",
+                        "referenced_column": "mouse_lines_id"
+                    },
+                    "fk_embryonic_stem_cell_line_mouse_line_embryonic_stem_cell_lin": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "embryonic_stem_cell_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "mouse_lines_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_embryonic_stem_cell_line_mouse_line_mouse_lines_mouse_lines": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "mouse_lines",
+                        "referenced_column": "id"
+                    },
+                    "pk_embryonic_stem_cell_line_mouse_line": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "embryonic_stem_cell_line_mouse_line",
+                        "referenced_column": "mouse_lines_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "embryonic_stem_cell_lines",
+                "mouse_lines"
+            ]
+        }
+    },
+    "embryonic_stem_cell_line_reagent": {
+        "columns": [
+            {
+                "name": "embryonic_stem_cell_lines_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_embryonic_stem_cell_line_reagent": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "embryonic_stem_cell_line_reagent",
+                        "referenced_column": "reagents_id"
+                    },
+                    "fk_embryonic_stem_cell_line_reagent_embryonic_stem_cell_lines_": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "embryonic_stem_cell_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "reagents_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_embryonic_stem_cell_line_reagent_reagents_reagents_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "reagents",
+                        "referenced_column": "id"
+                    },
+                    "pk_embryonic_stem_cell_line_reagent": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "embryonic_stem_cell_line_reagent",
+                        "referenced_column": "reagents_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "embryonic_stem_cell_lines",
+                "reagents"
+            ]
+        }
+    },
+    "embryonic_stem_cell_lines": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_embryonic_stem_cell_lines": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "embryonic_stem_cell_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "genetic_background",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "passage_number",
+                "data_type": "integer",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "rr_id",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "parents",
+                "data_type": "ARRAY",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "children",
+                "data_type": "ARRAY",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "molecule_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_embryonic_stem_cell_lines_molecules_molecule_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "shipment_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_embryonic_stem_cell_lines_shipments_shipment_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "shipments",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 12,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "molecules",
+                "shipments"
+            ]
+        }
+    },
+    "files": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_files": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "files",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "filename",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "uri",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "notes",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "is_preferred",
+                "data_type": "boolean",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "discriminator",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 10,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "gene_molecule": {
+        "columns": [
+            {
+                "name": "genes_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_gene_molecule": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "gene_molecule",
+                        "referenced_column": "molecules_id"
+                    },
+                    "fk_gene_molecule_genes_genes_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "genes",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "molecules_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_gene_molecule_molecules_molecules_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    },
+                    "pk_gene_molecule": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "gene_molecule",
+                        "referenced_column": "molecules_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "genes",
+                "molecules"
+            ]
+        }
+    },
+    "gene_symbol_aliases": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_gene_symbol_aliases": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "gene_symbol_aliases",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "gene_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_gene_symbol_aliases_genes_gene_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "genes",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "is_preferred",
+                "data_type": "boolean",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "genes"
+            ]
+        }
+    },
+    "genes": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_genes": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "genes",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "ror_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "entrez_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "reference_genome_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_genes_reference_genomes_reference_genome_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "reference_genomes",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "reference_genomes"
+            ]
+        }
+    },
+    "import_types": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_import_types": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "import_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 6,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "imports": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_imports": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "imports",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "import_type_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_imports_import_types_import_type_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "import_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "import_state",
+                "data_type": "USER-DEFINED",
+                "column_default": null,
+                "is_nullable": false,
+                "user_defined_type": {
+                    "name": "import_state",
+                    "values": [
+                        "pending",
+                        "in_progress",
+                        "failed",
+                        "finished"
+                    ]
+                }
+            },
+            {
+                "name": "messages",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "discriminator",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 10,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": true,
+            "foreign_constraint_tables": [
+                "import_types"
+            ]
+        }
+    },
+    "line_properties": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_line_properties": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "line_properties",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "notes",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "embryonic_stem_cell_line_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_line_properties_embryonic_stem_cell_lines_embryonic_stem_ce": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "embryonic_stem_cell_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "line_property_type_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_line_properties_line_property_types_line_property_type_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "line_property_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "transgenic_line_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_line_properties_mouse_lines_transgenic_line_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "mouse_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "locus_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_line_properties_loci_locus_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "loci",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 10,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "embryonic_stem_cell_lines",
+                "line_property_types",
+                "mouse_lines",
+                "loci"
+            ]
+        }
+    },
+    "line_property_dependencies": {
+        "columns": [
+            {
+                "name": "line_property_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_line_property_dependencies": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "line_property_dependencies",
+                        "referenced_column": "line_property_type_id"
+                    },
+                    "fk_line_property_dependencies_line_property": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "line_properties",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "line_property_type_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_line_property_dependencies_line_property_type": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "line_property_types",
+                        "referenced_column": "id"
+                    },
+                    "pk_line_property_dependencies": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "line_property_dependencies",
+                        "referenced_column": "line_property_type_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "line_properties",
+                "line_property_types"
+            ]
+        }
+    },
+    "line_property_types": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_line_property_types": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "line_property_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "discriminator",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 7,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "loci": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_loci": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "loci",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "start_position",
+                "data_type": "integer",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "end_position",
+                "data_type": "integer",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "mgi_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "entrez_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "chromosome",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "reference_genome_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_loci_reference_genomes_reference_genome_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "reference_genomes",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 11,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "reference_genomes"
+            ]
+        }
+    },
+    "locus_aliases": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_locus_aliases": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "locus_aliases",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "locus_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_locus_aliases_loci_locus_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "loci",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "is_preferred",
+                "data_type": "boolean",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "loci"
+            ]
+        }
+    },
+    "locus_molecule": {
+        "columns": [
+            {
+                "name": "loci_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_locus_molecule": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "locus_molecule",
+                        "referenced_column": "molecules_id"
+                    },
+                    "fk_locus_molecule_loci_loci_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "loci",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "molecules_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_locus_molecule_molecules_molecules_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    },
+                    "pk_locus_molecule": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "locus_molecule",
+                        "referenced_column": "molecules_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "loci",
+                "molecules"
+            ]
+        }
+    },
+    "material_transfer_agreement_molecule": {
+        "columns": [
+            {
+                "name": "material_transfer_agreements_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_material_transfer_agreement_molecule": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "material_transfer_agreement_molecule",
+                        "referenced_column": "molecules_id"
+                    },
+                    "fk_material_transfer_agreement_molecule_material_transfer_agre": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "material_transfer_agreements",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "molecules_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_material_transfer_agreement_molecule_molecules_molecules_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    },
+                    "pk_material_transfer_agreement_molecule": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "material_transfer_agreement_molecule",
+                        "referenced_column": "molecules_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "material_transfer_agreements",
+                "molecules"
+            ]
+        }
+    },
+    "material_transfer_agreement_organization": {
+        "columns": [
+            {
+                "name": "material_transfer_agreements_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_material_transfer_agreement_organization": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "material_transfer_agreement_organization",
+                        "referenced_column": "parties_id"
+                    },
+                    "fk_material_transfer_agreement_organization_material_transfer_": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "material_transfer_agreements",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "parties_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_material_transfer_agreement_organization_organizations_part": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "organizations",
+                        "referenced_column": "id"
+                    },
+                    "pk_material_transfer_agreement_organization": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "material_transfer_agreement_organization",
+                        "referenced_column": "parties_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "material_transfer_agreements",
+                "organizations"
+            ]
+        }
+    },
+    "material_transfer_agreement_transgenic_line": {
+        "columns": [
+            {
+                "name": "material_transfer_agreements_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_material_transfer_agreement_transgenic_line": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "material_transfer_agreement_transgenic_line",
+                        "referenced_column": "transgenic_lines_id"
+                    },
+                    "fk_material_transfer_agreement_transgenic_line_material_transf": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "material_transfer_agreements",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "transgenic_lines_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_material_transfer_agreement_transgenic_line_mouse_lines_tra": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "mouse_lines",
+                        "referenced_column": "id"
+                    },
+                    "pk_material_transfer_agreement_transgenic_line": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "material_transfer_agreement_transgenic_line",
+                        "referenced_column": "transgenic_lines_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "material_transfer_agreements",
+                "mouse_lines"
+            ]
+        }
+    },
+    "material_transfer_agreement_viral_prep": {
+        "columns": [
+            {
+                "name": "material_transfer_agreements_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_material_transfer_agreement_viral_prep": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "material_transfer_agreement_viral_prep",
+                        "referenced_column": "viral_preps_id"
+                    },
+                    "fk_material_transfer_agreement_viral_prep_material_transfer_ag": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "material_transfer_agreements",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "viral_preps_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_material_transfer_agreement_viral_prep_viral_preps_viral_pr": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viral_preps",
+                        "referenced_column": "id"
+                    },
+                    "pk_material_transfer_agreement_viral_prep": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "material_transfer_agreement_viral_prep",
+                        "referenced_column": "viral_preps_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "material_transfer_agreements",
+                "viral_preps"
+            ]
+        }
+    },
+    "material_transfer_agreements": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_material_transfer_agreements": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "material_transfer_agreements",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "legal_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "state",
+                "data_type": "USER-DEFINED",
+                "column_default": null,
+                "is_nullable": false,
+                "user_defined_type": {
+                    "name": "material_transfer_agreement_state",
+                    "values": [
+                        "pending_review",
+                        "active",
+                        "deprecated",
+                        "retired"
+                    ]
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": true,
+            "foreign_constraint_tables": []
+        }
+    },
+    "method_transgenic_line": {
+        "columns": [
+            {
+                "name": "methods_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_method_transgenic_line": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "method_transgenic_line",
+                        "referenced_column": "transgenic_lines_id"
+                    },
+                    "fk_method_transgenic_line_methods_methods_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "methods",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "transgenic_lines_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_method_transgenic_line_mouse_lines_transgenic_lines_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "mouse_lines",
+                        "referenced_column": "id"
+                    },
+                    "pk_method_transgenic_line": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "method_transgenic_line",
+                        "referenced_column": "transgenic_lines_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "methods",
+                "mouse_lines"
+            ]
+        }
+    },
+    "methods": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_methods": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "methods",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "ror_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "uri",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "molecule_alias": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_molecule_alias": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_alias",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "molecule_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_molecule_alias_molecules_molecule_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "is_preferred",
+                "data_type": "boolean",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "molecules"
+            ]
+        }
+    },
+    "molecule_organization": {
+        "columns": [
+            {
+                "name": "molecules_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_molecule_organization": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_organization",
+                        "referenced_column": "organizations_id"
+                    },
+                    "fk_molecule_organization_molecules_molecules_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "organizations_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_molecule_organization_organizations_organizations_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "organizations",
+                        "referenced_column": "id"
+                    },
+                    "pk_molecule_organization": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_organization",
+                        "referenced_column": "organizations_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "molecules",
+                "organizations"
+            ]
+        }
+    },
+    "molecule_patent": {
+        "columns": [
+            {
+                "name": "molecules_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_molecule_patent": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_patent",
+                        "referenced_column": "patents_id"
+                    },
+                    "fk_molecule_patent_molecules_molecules_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "patents_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_molecule_patent_patents_patents_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "patents",
+                        "referenced_column": "id"
+                    },
+                    "pk_molecule_patent": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_patent",
+                        "referenced_column": "patents_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "molecules",
+                "patents"
+            ]
+        }
+    },
+    "molecule_shipment": {
+        "columns": [
+            {
+                "name": "molecules_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_molecule_shipment": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_shipment",
+                        "referenced_column": "shipments_id"
+                    },
+                    "fk_molecule_shipment_molecules_molecules_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "shipments_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_molecule_shipment_shipments_shipments_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "shipments",
+                        "referenced_column": "id"
+                    },
+                    "pk_molecule_shipment": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_shipment",
+                        "referenced_column": "shipments_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "molecules",
+                "shipments"
+            ]
+        }
+    },
+    "molecule_species": {
+        "columns": [
+            {
+                "name": "molecules_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_molecule_species": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_species",
+                        "referenced_column": "species_id"
+                    },
+                    "fk_molecule_species_molecules_molecules_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "species_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_molecule_species_species_species_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "species",
+                        "referenced_column": "id"
+                    },
+                    "pk_molecule_species": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_species",
+                        "referenced_column": "species_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "molecules",
+                "species"
+            ]
+        }
+    },
+    "molecule_types": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_molecule_types": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 6,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "molecule_virus": {
+        "columns": [
+            {
+                "name": "molecule_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_molecule_virus": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_virus",
+                        "referenced_column": "virus_id"
+                    },
+                    "fk_molecule_virus_molecules_molecule_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "virus_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_molecule_virus_viruses_virus_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viruses",
+                        "referenced_column": "id"
+                    },
+                    "pk_molecule_virus": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecule_virus",
+                        "referenced_column": "virus_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "molecules",
+                "viruses"
+            ]
+        }
+    },
+    "molecules": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_molecules": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "molecule_type_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_molecules_molecule_types_molecule_type_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecule_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "state",
+                "data_type": "USER-DEFINED",
+                "column_default": null,
+                "is_nullable": true,
+                "user_defined_type": {
+                    "name": "molecule_state",
+                    "values": [
+                        "in_development",
+                        "live",
+                        "in_progress",
+                        "toxic"
+                    ]
+                }
+            },
+            {
+                "name": "rr_id",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "addgene_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "mgi_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "notes",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "sequence",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "gen_bank_files",
+                "data_type": "ARRAY",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "map_files",
+                "data_type": "ARRAY",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "fasta_files",
+                "data_type": "ARRAY",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "parents",
+                "data_type": "ARRAY",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "children",
+                "data_type": "ARRAY",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "principal_investigator_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_molecules_contacts_principal_investigator_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "contacts",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 18,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": true,
+            "foreign_constraint_tables": [
+                "molecule_types",
+                "contacts"
+            ]
+        }
+    },
+    "mouse_line_shipment": {
+        "columns": [
+            {
+                "name": "mouse_lines_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_mouse_line_shipment": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "mouse_line_shipment",
+                        "referenced_column": "shipments_id"
+                    },
+                    "fk_mouse_line_shipment_mouse_lines_mouse_lines_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "mouse_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "shipments_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_mouse_line_shipment_shipments_shipments_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "shipments",
+                        "referenced_column": "id"
+                    },
+                    "pk_mouse_line_shipment": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "mouse_line_shipment",
+                        "referenced_column": "shipments_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "mouse_lines",
+                "shipments"
+            ]
+        }
+    },
+    "mouse_lines": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_mouse_lines": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "mouse_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "mgi_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "jax_stock_number",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "rr_id",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "parents",
+                "data_type": "ARRAY",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "children",
+                "data_type": "ARRAY",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "strain_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_mouse_lines_strains_strain_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "strains",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "shipment_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "discriminator",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 13,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "strains"
+            ]
+        }
+    },
+    "organization_patent": {
+        "columns": [
+            {
+                "name": "organizations_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_organization_patent": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "organization_patent",
+                        "referenced_column": "patents_id"
+                    },
+                    "fk_organization_patent_organizations_organizations_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "organizations",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "patents_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_organization_patent_patents_patents_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "patents",
+                        "referenced_column": "id"
+                    },
+                    "pk_organization_patent": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "organization_patent",
+                        "referenced_column": "patents_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "organizations",
+                "patents"
+            ]
+        }
+    },
+    "organization_types": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_organization_types": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "organization_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 6,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "organizations": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_organizations": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "organizations",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "organization_type_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_organizations_organization_types_organization_type_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "organization_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "organization_parent_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_organizations_organizations_organization_parent_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "organizations",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "ror_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "uri",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 10,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "organization_types",
+                "organizations"
+            ]
+        }
+    },
+    "other_molecule_virus": {
+        "columns": [
+            {
+                "name": "molecule_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_other_molecule_virus": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "other_molecule_virus",
+                        "referenced_column": "virus_id"
+                    },
+                    "fk_other_molecule_virus_molecules_molecule_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "molecules",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "virus_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_other_molecule_virus_viruses_virus_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viruses",
+                        "referenced_column": "id"
+                    },
+                    "pk_other_molecule_virus": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "other_molecule_virus",
+                        "referenced_column": "virus_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "molecules",
+                "viruses"
+            ]
+        }
+    },
+    "patent_transgenic_line": {
+        "columns": [
+            {
+                "name": "patents_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_patent_transgenic_line": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "patent_transgenic_line",
+                        "referenced_column": "transgenic_lines_id"
+                    },
+                    "fk_patent_transgenic_line_patents_patents_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "patents",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "transgenic_lines_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_patent_transgenic_line_mouse_lines_transgenic_lines_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "mouse_lines",
+                        "referenced_column": "id"
+                    },
+                    "pk_patent_transgenic_line": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "patent_transgenic_line",
+                        "referenced_column": "transgenic_lines_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "patents",
+                "mouse_lines"
+            ]
+        }
+    },
+    "patent_types": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_patent_types": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "patent_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 6,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "patent_viral_prep": {
+        "columns": [
+            {
+                "name": "patents_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_patent_viral_prep": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "patent_viral_prep",
+                        "referenced_column": "viral_preps_id"
+                    },
+                    "fk_patent_viral_prep_patents_patents_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "patents",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "viral_preps_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_patent_viral_prep_viral_preps_viral_preps_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viral_preps",
+                        "referenced_column": "id"
+                    },
+                    "pk_patent_viral_prep": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "patent_viral_prep",
+                        "referenced_column": "viral_preps_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "patents",
+                "viral_preps"
+            ]
+        }
+    },
+    "patent_virus": {
+        "columns": [
+            {
+                "name": "patents_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_patent_virus": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "patent_virus",
+                        "referenced_column": "viruses_id"
+                    },
+                    "fk_patent_virus_patents_patents_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "patents",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "viruses_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_patent_virus_viruses_viruses_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viruses",
+                        "referenced_column": "id"
+                    },
+                    "pk_patent_virus": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "patent_virus",
+                        "referenced_column": "viruses_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "patents",
+                "viruses"
+            ]
+        }
+    },
+    "patents": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_patents": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "patents",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "legal_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "patent_number",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "state",
+                "data_type": "USER-DEFINED",
+                "column_default": null,
+                "is_nullable": false,
+                "user_defined_type": {
+                    "name": "patent_state",
+                    "values": [
+                        "required",
+                        "pending",
+                        "cancelled",
+                        "granted",
+                        "unknown"
+                    ]
+                }
+            },
+            {
+                "name": "notes",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "patent_type_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_patents_patent_types_patent_type_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "patent_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 11,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": true,
+            "foreign_constraint_tables": [
+                "patent_types"
+            ]
+        }
+    },
+    "reagents": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_reagents": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "reagents",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 6,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "reference_genomes": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_reference_genomes": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "reference_genomes",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "build",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "species_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_reference_genomes_species_species_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "species",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "species"
+            ]
+        }
+    },
+    "serotype_viral_prep": {
+        "columns": [
+            {
+                "name": "serotypes_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_serotype_viral_prep": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "serotype_viral_prep",
+                        "referenced_column": "viral_preps_id"
+                    },
+                    "fk_serotype_viral_prep_serotypes_serotypes_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "serotypes",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "viral_preps_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_serotype_viral_prep_viral_preps_viral_preps_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viral_preps",
+                        "referenced_column": "id"
+                    },
+                    "pk_serotype_viral_prep": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "serotype_viral_prep",
+                        "referenced_column": "viral_preps_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "serotypes",
+                "viral_preps"
+            ]
+        }
+    },
+    "serotypes": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_serotypes": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "serotypes",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 6,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "shipment_communication": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_shipment_communication": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "shipment_communication",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "organization_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_shipment_communication_organizations_organization_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "organizations",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "group_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_shipment_communication_organizations_group_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "organizations",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "contact_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_shipment_communication_contacts_contact_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "contacts",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "organizations",
+                "organizations",
+                "contacts"
+            ]
+        }
+    },
+    "shipment_viral_prep": {
+        "columns": [
+            {
+                "name": "shipments_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_shipment_viral_prep": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "shipment_viral_prep",
+                        "referenced_column": "viral_preps_id"
+                    },
+                    "fk_shipment_viral_prep_shipments_shipments_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "shipments",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "viral_preps_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_shipment_viral_prep_viral_preps_viral_preps_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viral_preps",
+                        "referenced_column": "id"
+                    },
+                    "pk_shipment_viral_prep": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "shipment_viral_prep",
+                        "referenced_column": "viral_preps_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "shipments",
+                "viral_preps"
+            ]
+        }
+    },
+    "shipments": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_shipments": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "shipments",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "date",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "tracking_number",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "material_transfer_agreement_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_shipments_material_transfer_agreements_material_transfer_ag": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "material_transfer_agreements",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "sender_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_shipments_shipment_communication_sender_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "shipment_communication",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "receiver_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_shipments_shipment_communication_receiver_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "shipment_communication",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 10,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "material_transfer_agreements",
+                "shipment_communication",
+                "shipment_communication"
+            ]
+        }
+    },
+    "species": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_species": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "species",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "ror_id",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 7,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "strains": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_strains": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "strains",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 6,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "titer_types": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_titer_types": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "titer_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 6,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "titers": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_titers": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "titers",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "notes",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "is_preferred",
+                "data_type": "boolean",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "thawed_count",
+                "data_type": "integer",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "result",
+                "data_type": "numeric",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "viral_prep_lot_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_titers_viral_prep_lots_viral_prep_lot_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viral_prep_lots",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "titer_type_id",
+                "data_type": "uuid",
+                "column_default": "'00000000-0000-0000-0000-000000000000'::uuid",
+                "is_nullable": false,
+                "constraint": {
+                    "fk_titers_titer_types_titer_type_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "titer_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 11,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "viral_prep_lots",
+                "titer_types"
+            ]
+        }
+    },
+    "transgenic_line_aliases": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_transgenic_line_aliases": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "transgenic_line_aliases",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "transgenic_line_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_transgenic_line_aliases_mouse_lines_transgenic_line_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "mouse_lines",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "is_preferred",
+                "data_type": "boolean",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "mouse_lines"
+            ]
+        }
+    },
+    "transgenic_line_transgenic_line_type": {
+        "columns": [
+            {
+                "name": "transgenic_line_types_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_transgenic_line_transgenic_line_type": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "transgenic_line_transgenic_line_type",
+                        "referenced_column": "transgenic_lines_id"
+                    },
+                    "fk_transgenic_line_transgenic_line_type_transgenic_line_types_": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "transgenic_line_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "transgenic_lines_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_transgenic_line_transgenic_line_type_mouse_lines_transgenic": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "mouse_lines",
+                        "referenced_column": "id"
+                    },
+                    "pk_transgenic_line_transgenic_line_type": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "transgenic_line_transgenic_line_type",
+                        "referenced_column": "transgenic_lines_id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 2,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "transgenic_line_types",
+                "mouse_lines"
+            ]
+        }
+    },
+    "transgenic_line_types": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_transgenic_line_types": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "transgenic_line_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 6,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "viral_prep_lots": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_viral_prep_lots": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "viral_prep_lots",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "lot",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "viral_prep_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_viral_prep_lots_viral_preps_viral_prep_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viral_preps",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "date_prepped",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "viral_preps"
+            ]
+        }
+    },
+    "viral_prep_types": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_viral_prep_types": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "viral_prep_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 6,
+            "has_foreign_keys": false,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": []
+        }
+    },
+    "viral_preps": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_viral_preps": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "viral_preps",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "rr_id",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "viral_prep_type_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_viral_preps_viral_prep_types_viral_prep_type_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viral_prep_types",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "qc_certification_files",
+                "data_type": "ARRAY",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "virus_id",
+                "data_type": "uuid",
+                "column_default": "'00000000-0000-0000-0000-000000000000'::uuid",
+                "is_nullable": false,
+                "constraint": {
+                    "fk_viral_preps_viruses_virus_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viruses",
+                        "referenced_column": "id"
+                    }
+                }
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 9,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "viral_prep_types",
+                "viruses"
+            ]
+        }
+    },
+    "virus_aliases": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_virus_aliases": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "virus_aliases",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "virus_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "fk_virus_aliases_viruses_virus_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "viruses",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "name",
+                "data_type": "character varying",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "is_preferred",
+                "data_type": "boolean",
+                "column_default": null,
+                "is_nullable": false
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 8,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "viruses"
+            ]
+        }
+    },
+    "viruses": {
+        "columns": [
+            {
+                "name": "id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": false,
+                "constraint": {
+                    "pk_viruses": {
+                        "type": "PRIMARY KEY",
+                        "referenced_table": "viruses",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "rr_id",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "capsid_id",
+                "data_type": "uuid",
+                "column_default": null,
+                "is_nullable": true,
+                "constraint": {
+                    "fk_viruses_capsids_capsid_id": {
+                        "type": "FOREIGN KEY",
+                        "referenced_table": "capsids",
+                        "referenced_column": "id"
+                    }
+                }
+            },
+            {
+                "name": "created_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "created_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": false
+            },
+            {
+                "name": "updated_at",
+                "data_type": "timestamp without time zone",
+                "column_default": null,
+                "is_nullable": true
+            },
+            {
+                "name": "updated_by",
+                "data_type": "text",
+                "column_default": null,
+                "is_nullable": true
+            }
+        ],
+        "@table_metadata": {
+            "column_count": 7,
+            "has_foreign_keys": true,
+            "has_user_defined_keys": false,
+            "foreign_constraint_tables": [
+                "capsids"
+            ]
+        }
+    },
+    "@database_metadata": {
+        "no_foreign_key_tables": [
+            "__EFMigrationsHistory",
+            "capsids",
+            "contacts",
+            "files",
+            "import_types",
+            "line_property_types",
+            "material_transfer_agreements",
+            "methods",
+            "molecule_types",
+            "organization_types",
+            "patent_types",
+            "reagents",
+            "serotypes",
+            "species",
+            "strains",
+            "titer_types",
+            "transgenic_line_types",
+            "viral_prep_types"
+        ],
+        "foreign_key_tables": [
+            "citation",
+            "contact_molecule",
+            "contact_organization",
+            "contact_patent",
+            "embryonic_stem_cell_line_aliases",
+            "embryonic_stem_cell_line_method",
+            "embryonic_stem_cell_line_mouse_line",
+            "embryonic_stem_cell_line_reagent",
+            "embryonic_stem_cell_lines",
+            "gene_molecule",
+            "gene_symbol_aliases",
+            "genes",
+            "imports",
+            "line_properties",
+            "line_property_dependencies",
+            "loci",
+            "locus_aliases",
+            "locus_molecule",
+            "material_transfer_agreement_molecule",
+            "material_transfer_agreement_organization",
+            "material_transfer_agreement_transgenic_line",
+            "material_transfer_agreement_viral_prep",
+            "method_transgenic_line",
+            "molecule_alias",
+            "molecule_organization",
+            "molecule_patent",
+            "molecule_shipment",
+            "molecule_species",
+            "molecule_virus",
+            "molecules",
+            "mouse_line_shipment",
+            "mouse_lines",
+            "organization_patent",
+            "organizations",
+            "other_molecule_virus",
+            "patent_transgenic_line",
+            "patent_viral_prep",
+            "patent_virus",
+            "patents",
+            "reference_genomes",
+            "serotype_viral_prep",
+            "shipment_communication",
+            "shipment_viral_prep",
+            "shipments",
+            "titers",
+            "transgenic_line_aliases",
+            "transgenic_line_transgenic_line_type",
+            "viral_prep_lots",
+            "viral_preps",
+            "virus_aliases",
+            "viruses"
+        ]
+    }
+}

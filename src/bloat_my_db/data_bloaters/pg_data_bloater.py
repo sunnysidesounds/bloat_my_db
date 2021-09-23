@@ -10,7 +10,7 @@ import psycopg2.extras as psql_extras
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from progress.bar import Bar
 import pandas as pd
-from bloat_my_db.utilities import get_random_hash, get_random_datetime, get_random_number
+from bloat_my_db.randoms import Randoms
 
 from bloat_my_db import __version__
 
@@ -59,23 +59,23 @@ class PgDataBloater:
                 elif 'PRIMARY KEY' in types and column['data_type'] == 'uuid':
                     value = str(uuid.uuid4())
                 elif 'PRIMARY KEY' in types:
-                    value = get_random_hash(25)
+                    value = Randoms.get_hash(25)
                 else:
                     value = 'TODO'
             else:
                 if column['data_type'] == 'character varying':
-                    value = get_random_hash(25)
+                    value = Randoms.get_custom_text(column['name'])
                 elif column['data_type'] == 'timestamp without time zone':
-                    value = get_random_datetime(min_year=2000) # TODO : change this
+                    value = Randoms.get_datetime(min_year=2000)
                 elif column['data_type'] == 'text':
-                    value = get_random_hash(25)
+                    value = Randoms.get_custom_text(column['name'])
                 elif column['data_type'] == 'boolean':
-                    value = False
+                    value = Randoms.get_boolean()
                 elif column['data_type'] == 'USER-DEFINED':
                     user_defined_values = column['user_defined_type']['values']
-                    value = random.choice(user_defined_values)
+                    value = Randoms.get_value_from_list(user_defined_values)
                 elif column['data_type'] == 'integer':
-                    value = get_random_number()
+                    value = Randoms.get_number()
                 else:
                     print(column['data_type'])
 
