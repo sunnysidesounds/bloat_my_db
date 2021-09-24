@@ -6,7 +6,8 @@ import sys
 from bloat_my_db.schema_builders.pg_schema_builder import PgSchemaBuilder
 from bloat_my_db.schema_analyzers.pg_schema_analyzer import PgSchemaAnalyzer
 from bloat_my_db.data_bloaters.pg_data_bloater import PgDataBloater
-from bloat_my_db.utilities import read_file, purge_generated_files, get_generated_file_path, open_file_in_browser, script_intro_title
+from bloat_my_db.utilities.file import FileUtility
+from bloat_my_db.utilities import open_file_in_browser, script_intro_title
 
 from bloat_my_db import __version__
 
@@ -23,13 +24,12 @@ def parse_args(args):
     parser.add_argument('-buildSchema', help="builds the database schema file", action='store_true')
     parser.add_argument('-buildAnalyzedSchema', help="builds the analyzed database schema file", action='store_true')
     parser.add_argument('-populate', help="Takes the analyzed schema and bloats the database with random data", action='store_true')
-    parser.add_argument('-config', help="configuration file", type=str)
+    parser.add_argument('-config', help="configuration file or set BLOAT_CONFIG=<path> env variable", type=str)
     parser.add_argument('-rows', help="How may rows do you want to bloat the database, default is 25", type=int)
     parser.add_argument('-purge', help="purges both the schema and analyzed schema JSON files", action='store_true')
     parser.add_argument('-force', help="force rebuilds both schemas (used with -populate flag)", action='store_true')
     parser.add_argument('-openSchema', help="Opens the built schema in Chrome browser", action='store_true')
     parser.add_argument('-openAnalyzedSchema', help="Opens the built analyzed schema in Chrome browser", action='store_true')
-
     return parser.parse_args(args)
 
 
@@ -54,12 +54,12 @@ def main(args):
         configuration = args.config
 
     setup_logging()
-    conn_info = json.loads(read_file(configuration))
+    conn_info = json.loads(FileUtility.read_file(configuration))
     database = conn_info['database']
     force_rebuild = args.force if args.force else False
 
     if args.purge:
-        purge_generated_files()
+        FileUtility.purge_generated_files()
         logging.info("Completed generated file purge!")
         sys.exit()
 
@@ -78,13 +78,13 @@ def main(args):
         sys.exit()
 
     if args.openSchema:
-        schema_path = get_generated_file_path(database, 'schemas')
+        schema_path = FileUtility.get_generated_file_path(database, 'schemas')
         open_file_in_browser(schema_path)
         print("- Opened schema for {database} in browser!".format(database=database))
         sys.exit()
 
     if args.openAnalyzedSchema:
-        analyzer_path = get_generated_file_path(database, 'analyzers')
+        analyzer_path = FileUtility.get_generated_file_path(database, 'analyzers')
         open_file_in_browser(analyzer_path)
         print("- Opened analyzed schema for {database} in browser!".format(database=database))
         sys.exit()
@@ -102,10 +102,6 @@ def main(args):
             bloater.bloat_data(rows_to_create)
             print("- Completed bloating {database} database!".format(database=database, rows=rows_to_create))
             builder.display_stat_results(rows_to_create)
-
-        # analyzer.display_table_insertion_order()
-        # builder.display_table_count()
-        # builder.display_row_count_by_table()
     else:
         parser.print_help()
         print("\n")

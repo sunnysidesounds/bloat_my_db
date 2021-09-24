@@ -1,13 +1,9 @@
-import argparse
 import logging
-import sys
 import os
-import random
 import psycopg2
 from progress.bar import Bar
-from bloat_my_db.utilities import generate_json_file, read_file, display_in_table, is_generated_file_exist, get_filename, load_generated_file
-
-from bloat_my_db import __version__
+from bloat_my_db.utilities.file import FileUtility
+from bloat_my_db.utilities import display_in_table
 
 __author__ = "Jason R Alexander"
 __copyright__ = "Jason R Alexander"
@@ -27,9 +23,9 @@ class PgSchemaAnalyzer:
         self.insert_order = 1
 
     def build_analyzer_schema(self, force_rebuild=False):
-        if is_generated_file_exist(self.database, 'analyzers') and not force_rebuild:
-            print("- {schema_file}.json already exists, using this generated analyzer schema...".format(schema_file=get_filename(self.database)))
-            self.analyzed_schema = load_generated_file(self.database, 'analyzers')
+        if FileUtility.is_generated_file_exist(self.database, 'analyzers') and not force_rebuild:
+            print("- {schema_file}.json already exists, using this generated analyzer schema...".format(schema_file=FileUtility.get_filename(self.database)))
+            self.analyzed_schema = FileUtility.load_generated_file(self.database, 'analyzers')
         else:
             insertion_table_order = self.get_insertion_table_order()
             progress_bar = Bar('- Analyzing schema for {database}, determining insertion order...'.format(database=self.database),
@@ -42,7 +38,7 @@ class PgSchemaAnalyzer:
                 self.insert_order += 1
                 progress_bar.next()
             progress_bar.finish()
-            generate_json_file(self.database, self.analyzed_schema, 'analyzers')
+            FileUtility.generate_json_file(self.database, self.analyzed_schema, 'analyzers')
         return self.analyzed_schema
 
     def display_table_insertion_order(self):
@@ -55,7 +51,7 @@ class PgSchemaAnalyzer:
 
     def get_insertion_table_order(self):
         sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_insertion_table_order.sql')
-        query = read_file(sql_file)
+        query = FileUtility.read_file(sql_file)
         self.cursor.execute(query)
         insertion_data = self.cursor.fetchall()
         output = []

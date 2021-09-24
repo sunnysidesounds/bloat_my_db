@@ -1,20 +1,11 @@
-import argparse
 import logging
-import sys
 from tabulate import tabulate
-import json
-import time
 import os
 import psycopg2
 from progress.bar import Bar
-from bloat_my_db.utilities import generate_json_file, \
-    is_generated_file_exist, \
-    load_generated_file, \
-    get_filename, \
-    read_file, \
-    display_in_table
+from bloat_my_db.utilities.file import FileUtility
+from bloat_my_db.utilities import display_in_table
 
-from bloat_my_db import __version__
 
 __author__ = "Jason R Alexander"
 __copyright__ = "Jason R Alexander"
@@ -34,9 +25,9 @@ class PgSchemaBuilder:
 
     def build_schema(self, table_schema_name='public', force_rebuild=False):
 
-        if is_generated_file_exist(self.database, 'schemas') and not force_rebuild:
-            print("- {schema_file}.json already exists, using this generated schema...".format(schema_file=get_filename(self.database)))
-            self.schema = load_generated_file(self.database, 'schemas')
+        if FileUtility.is_generated_file_exist(self.database, 'schemas') and not force_rebuild:
+            print("- {schema_file}.json already exists, using this generated schema...".format(schema_file=FileUtility.get_filename(self.database)))
+            self.schema = FileUtility.load_generated_file(self.database, 'schemas')
         else:
             tables = self.build_tables(table_schema_name)
             no_foreign_keys = []
@@ -55,13 +46,13 @@ class PgSchemaBuilder:
                 "no_foreign_key_tables": no_foreign_keys,
                 "foreign_key_tables": has_foreign_keys
             }
-            generate_json_file(self.database, self.schema, 'schemas')
+            FileUtility.generate_json_file(self.database, self.schema, 'schemas')
 
         return self.schema
 
     def build_tables(self, table_schema_name='public'):
         sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/build_tables.sql')
-        query = read_file(sql_file).format(name=table_schema_name)
+        query = FileUtility.read_file(sql_file).format(name=table_schema_name)
 
         self.cursor.execute(query)
         table_data = self.cursor.fetchall()
@@ -73,7 +64,7 @@ class PgSchemaBuilder:
 
     def build_columns(self, table_name, table_schema_name='public'):
         sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/build_columns.sql')
-        query = read_file(sql_file).format(schema_name=table_schema_name, table_name=table_name)
+        query = FileUtility.read_file(sql_file).format(schema_name=table_schema_name, table_name=table_name)
 
         self.cursor.execute(query)
         column_data = self.cursor.fetchall()
@@ -120,7 +111,7 @@ class PgSchemaBuilder:
 
     def get_column_constraint(self, table_name, column_name, table_schema_name='public'):
         sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_column_constraint.sql')
-        query = read_file(sql_file).format(schema_name=table_schema_name, table_name=table_name, column_name=column_name)
+        query = FileUtility.read_file(sql_file).format(schema_name=table_schema_name, table_name=table_name, column_name=column_name)
 
         self.cursor.execute(query)
         constraint_data = self.cursor.fetchall()
@@ -136,7 +127,7 @@ class PgSchemaBuilder:
 
     def get_values_from_type(self, type):
         sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_values_from_type.sql')
-        query = read_file(sql_file).format(type=type)
+        query = FileUtility.read_file(sql_file).format(type=type)
         self.cursor.execute(query)
         types = []
         type_data = self.cursor.fetchall()
@@ -146,7 +137,7 @@ class PgSchemaBuilder:
 
     def get_table_count(self):
         sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_table_count.sql')
-        query = read_file(sql_file).format(type=type)
+        query = FileUtility.read_file(sql_file).format(type=type)
         self.cursor.execute(query)
         count = self.cursor.fetchone()
         self.table_count = count[0]
@@ -157,7 +148,7 @@ class PgSchemaBuilder:
 
     def get_row_count_by_table(self):
         sql_file = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'sql/get_row_count_by_table.sql')
-        query = read_file(sql_file).format(type=type)
+        query = FileUtility.read_file(sql_file).format(type=type)
         self.cursor.execute(query)
         tables = []
         type_data = self.cursor.fetchall()
