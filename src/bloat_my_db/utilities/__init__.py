@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import random
+import pyfiglet
 from os.path import exists
 import webbrowser
 from tabulate import tabulate
@@ -92,4 +93,9 @@ def display_in_table(title, table, headers):
     print("\n{title}".format(title=title))
     print(tabulate(table, headers=headers, tablefmt="fancy_grid"))
     print("\n")
+
+
+def script_intro_title():
+    ascii_title = pyfiglet.figlet_format("B l o a t DB", font="3-d")
+    print(ascii_title)
 

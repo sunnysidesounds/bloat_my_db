@@ -1,6 +1,7 @@
 import argparse
 import logging
 import sys
+from tabulate import tabulate
 import json
 import time
 import os
@@ -166,3 +167,9 @@ class PgSchemaBuilder:
 
     def display_row_count_by_table(self):
         display_in_table("Row Count By Table Results:", self.get_row_count_by_table(), ["TABLE_NAME", "COUNT"])
+
+    def display_stat_results(self, rows_to_create):
+        print(tabulate( [["Total tables", self.get_table_count()],
+                         ["Rows added per table", rows_to_create],
+                         ["Total rows inserted", rows_to_create * self.get_table_count()]
+                         ], headers=['Results:', ' '], tablefmt="fancy_grid"))
