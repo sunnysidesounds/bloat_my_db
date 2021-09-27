@@ -6,7 +6,6 @@ from progress.bar import Bar
 from bloat_my_db.utilities.file import FileUtility
 from bloat_my_db.utilities import display_in_table
 
-
 __author__ = "Jason R Alexander"
 __copyright__ = "Jason R Alexander"
 __license__ = "MIT"

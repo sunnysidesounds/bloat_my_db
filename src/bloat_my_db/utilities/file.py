@@ -3,6 +3,7 @@ import json
 import os
 from os.path import exists
 import time
+import shutil
 
 __author__ = "Jason R Alexander"
 __copyright__ = "Jason R Alexander"
@@ -49,6 +50,20 @@ class FileUtility:
         return '{path}/{type}/{file_name}.json'.format(path=path, file_name=file_name, type=generation_type)
 
     @staticmethod
+    def get_csv_file_directory_path(database_name):
+        generated_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'generated')
+        return "{path}/csvs/{database_name}".format(path=generated_path, database_name=database_name)
+
+    @staticmethod
+    def get_csv_file_path(table_name, database_name):
+        file_name = FileUtility.get_filename(table_name)
+        directory_path = FileUtility.get_csv_file_directory_path(database_name)
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+
+        return '{path}/{file_name}.csv'.format(path=directory_path, file_name=file_name)
+
+    @staticmethod
     def read_file(file_path):
         file = open(file_path)
         contents = file.read()
@@ -69,5 +84,11 @@ class FileUtility:
     def purge_generated_files():
         generated_schemas_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'generated/schemas')
         generated_analyzers_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'generated/analyzers')
+        generated_csvs_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'generated/csvs')
         FileUtility.delete_files(generated_schemas_path)
         FileUtility.delete_files(generated_analyzers_path)
+        FileUtility.delete_files(generated_csvs_path)
+
+    @staticmethod
+    def zip_and_save_folder(path, export_path):
+        shutil.make_archive(export_path, 'zip', path)

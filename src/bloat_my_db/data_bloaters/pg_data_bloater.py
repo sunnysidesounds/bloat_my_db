@@ -23,13 +23,14 @@ _logger = logging.getLogger(__name__)
 
 class PgDataBloater:
 
-    def __init__(self, analyzed_schema, conn_info):
+    def __init__(self, analyzed_schema, conn_info, data_import_type='random'):
         self.connection = psycopg2.connect(**conn_info)
         self.database = conn_info['database']
         self.cursor = self.connection.cursor()
         self.analyzed_schema = analyzed_schema
+        self.import_type = data_import_type
 
-    def bloat_data(self, how_many):
+    def feed_db(self, how_many):
         for key, value in self.analyzed_schema.items():
             table = list(value.keys())[0]
             self.populate_table(how_many, table, value[table]['columns'])
@@ -37,11 +38,23 @@ class PgDataBloater:
     def build_dataframe(self, columns):
         dataframe = {}
         for column in columns:
-            value = self.get_data_by_type(column)
+            if self.import_type == 'random':
+                value = self.get_random_data_by_type(column)
+            elif self.import_type == 'csv':
+                value = self.get_csv_data_by_type(column)
+            else:
+                # TODO: Throw error
+                print("- TODO Implement this functionality")
+                value = None
+                sys.exit()
+
             dataframe[column['name']] = [value]
         return pd.DataFrame(dataframe)
 
-    def get_data_by_type(self, column):
+    def get_csv_data_by_type(self, column):
+        return "TODO"
+
+    def get_random_data_by_type(self, column):
         value = None
         # check if is_nullable is True (if False we need a value)
         if not column['is_nullable']:
