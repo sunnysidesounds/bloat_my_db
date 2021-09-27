@@ -17,22 +17,21 @@ __copyright__ = "Jason R Alexander"
 __license__ = "MIT"
 
 _logger = logging.getLogger(__name__)
-parser = argparse.ArgumentParser(description="Utility tool that adds random data to your database for development.",
+parser = argparse.ArgumentParser(description="Utility tool that populates random or CSV data to your database for development purposes",
                                  epilog="Version: {version}".format(version=__version__))
 
-
 def parse_args(args):
-    parser.add_argument('-buildSchema', help="builds the database schema file", action='store_true')
-    parser.add_argument('-buildAnalyzedSchema', help="builds the analyzed database schema file", action='store_true')
-    parser.add_argument('-buildCSVSchema', help="builds CSV files of all the table schemas (To had your own data)", action='store_true')
-    parser.add_argument('-populate', help="Takes the analyzed schema and bloats the database with random data", action='store_true')
+    parser.add_argument('-bs',  '--buildSchema', help="builds the database schema file", action='store_true')
+    parser.add_argument('-bas', '--buildAnalyzedSchema', help="builds the analyzed database schema file", action='store_true')
+    parser.add_argument('-bcs', '--buildCSVSchema', help="builds CSV files of all the table schemas (To had your own data)", action='store_true')
+    parser.add_argument('-prd', '--populateRandomData', help="Takes the analyzed schema and bloats the database with random data", action='store_true')
+    parser.add_argument('-pcd', '--populateCSVData', help="Takes the analyzed schema and bloats the database with specified CSV data", action='store_true')
     parser.add_argument('-config', help="configuration file or set BLOAT_CONFIG=<path> env variable", type=str)
     parser.add_argument('-rows', help="How may rows do you want to bloat the database, default is 25", type=int)
-    parser.add_argument('-purge', help="purges both the schema and analyzed schema JSON files", action='store_true')
-    parser.add_argument('-force', help="force rebuilds both schemas (used with -populate flag)", action='store_true')
-    parser.add_argument('-openSchema', help="Opens the built schema in Chrome browser", action='store_true')
-    parser.add_argument('-openAnalyzedSchema', help="Opens the built analyzed schema in Chrome browser", action='store_true')
-    parser.add_argument('-importType', help="The kind of data you want to import [random, csv]", type=str)
+    parser.add_argument('-purge', help="purges all generated files (both the schema, analyzed schema and CSV export files)", action='store_true')
+    parser.add_argument('-force', help="force rebuilds both schemas (used with -populateRandomData flag)", action='store_true')
+    parser.add_argument('-os', '--openSchema', help="Opens the built schema in Chrome browser", action='store_true')
+    parser.add_argument('-oas', '--openAnalyzedSchema', help="Opens the built analyzed schema in Chrome browser", action='store_true')
     return parser.parse_args(args)
 
 
@@ -109,7 +108,7 @@ def main(args):
             print("- Completed building CSV export files for {database} database!".format(database=database))
         sys.exit()
 
-    if args.populate:
+    if args.populateRandomData:
         default_import_type = 'random'
         builder = PgSchemaBuilder(configuration_values['db'])
         schema = builder.build_schema(force_rebuild=force_rebuild)
@@ -117,8 +116,7 @@ def main(args):
         analyzed_schema = analyzer.build_analyzer_schema(force_rebuild=force_rebuild)
         if analyzed_schema:
             print("- Completed building & analyzing {database} database!".format(database=database))
-            import_type = args.importType if args.importType else default_import_type
-            bloater = PgDataBloater(analyzed_schema, configuration_values['db'], import_type)
+            bloater = PgDataBloater(analyzed_schema, configuration_values['db'])
             rows_to_create = args.rows if args.rows else default_rows_to_generate
             bloater.feed_db(rows_to_create)
             print("- Completed bloating {database} database!".format(database=database, rows=rows_to_create))
