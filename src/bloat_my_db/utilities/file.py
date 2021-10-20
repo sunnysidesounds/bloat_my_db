@@ -90,5 +90,36 @@ class FileUtility:
         FileUtility.delete_files(generated_csvs_path)
 
     @staticmethod
+    def purge_analyzer_files():
+        generated_analyzers_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'generated/analyzers')
+        print("- Purging old analyzer files...")
+        FileUtility.delete_files(generated_analyzers_path)
+
+    @staticmethod
+    def purge_schema_files():
+        generated_schemas_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'generated/schemas')
+        print("- Purging old schema files...")
+        FileUtility.delete_files(generated_schemas_path)
+
+    @staticmethod
+    def purge_csv_files(database):
+        generated_csvs_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)), 'generated/csvs/{database}'.format(database=database))
+        print("- Purging old CSV files...")
+        FileUtility.delete_files(generated_csvs_path)
+
+    @staticmethod
     def zip_and_save_folder(path, export_path):
         shutil.make_archive(export_path, 'zip', path)
+
+    @staticmethod
+    def get_files_in_workspace(workspace_path, args):
+        workspace_files=os.listdir(workspace_path)
+        acceptable_files = {}
+        option = 1
+        for file in workspace_files:
+            if file.lower().endswith(('.csv', '.zip')):
+                acceptable_files[option] = "{workspace_path}{file}".format(workspace_path=workspace_path, file=file)
+                if not args.disablePrompt:
+                    print("- Option {option}: {file_name}".format(option=option, file_name=file))
+                option += 1
+        return acceptable_files

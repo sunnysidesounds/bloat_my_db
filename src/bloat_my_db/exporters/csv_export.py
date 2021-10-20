@@ -61,6 +61,11 @@ class CsvExporter:
                     constraint = column['constraint'][constraint_name]
                     constraint_table = constraint['referenced_table']
                     constraint_column = constraint['referenced_column']
+
+                    random_row = self.get_random_row(constraint_column, constraint_table)
+                    if not random_row:
+                        print(random_row)
+
                     value = str(self.get_random_row(constraint_column, constraint_table)[0])
                     csv_columns.append(value)
                 elif 'PRIMARY KEY' in types and column['data_type'] == 'uuid':
@@ -69,7 +74,10 @@ class CsvExporter:
                 else:
                     csv_columns.append("")
             else:
-                csv_columns.append("")
+                if column['is_nullable']:
+                    csv_columns.append("NOT NULL")
+                else:
+                    csv_columns.append("")
 
         return csv_columns
 
