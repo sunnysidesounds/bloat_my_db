@@ -119,7 +119,7 @@ def main(args):
             rows_to_create = args.rows if args.rows else default_rows_to_generate
             exporter.export_db(rows_to_create)
             csv_file_path = FileUtility.get_csv_file_directory_path(database)
-            workspace_path =  "{export_path}{database}".format(export_path=workspace_path, database=database)
+            workspace_path = "{export_path}{database}".format(export_path=workspace_path, database=database)
             FileUtility.zip_and_save_folder(csv_file_path, workspace_path)
             print("- Completed building CSV export files for {database} database!".format(database=database))
         sys.exit()
