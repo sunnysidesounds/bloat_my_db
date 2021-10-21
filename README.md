@@ -29,6 +29,17 @@ The CSV or zip file (of CSV's) you want to import into the database
 
 ```
 
+## Prerequisite
+- python 3.9.1
+
+## Install
+```bash
+git clone https://github.com/sunnysidesounds/bloat_my_db
+cd bloat_my_db
+python setup.py install
+bloatdb -h
+```
+
 ## Usage
 1. Create a `bloat_config.json` file with these values and set `BLOAT_CONFIG=<path>` env variable or using `-config=<path>`  parameter
 ```bash

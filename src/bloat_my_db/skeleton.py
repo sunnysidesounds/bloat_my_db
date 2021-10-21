@@ -23,7 +23,6 @@ References:
 import argparse
 import logging
 import sys
-from faker import Faker
 
 from bloat_my_db import __version__
 
@@ -41,8 +40,7 @@ _logger = logging.getLogger(__name__)
 # when using this Python module as a library.
 
 def fake_name():
-    fake = Faker()
-    print(fake.name())
+    print(f"ake.name()")
 
 
 
